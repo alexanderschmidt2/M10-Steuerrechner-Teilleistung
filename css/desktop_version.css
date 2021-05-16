@@ -18,8 +18,20 @@
             align-items: center;
             /* Auf der Kreuzachse(längs) nach Boxgröße zentriert */
         }
+        body {
+            min-height: 100vh;
+        }
         
         nav li {
             display: inline;
             font-weight: bold;
+        }
+
+        footer{
+            position: sticky;
+            top:100%;
+            padding: 10px;
+            background-color:lightgrey;
+            color: #2d6f9e;
+
         }
