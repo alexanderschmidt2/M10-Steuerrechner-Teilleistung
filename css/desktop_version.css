@@ -2,9 +2,24 @@
             margin: 0;
             padding: 0;
             font-family: "BundesSans Web";
+            color: #2d6f9e;
+            /* offziell verwendete Zoll Farbe */
         }
         
         @font-face {
             font-family: "BundesSans Web";
             src: local ("BundesSans Web") url("schriften/BundesSans Web/BundesSans Web.ttf") format("truetype");
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-evenly;
+            /* Auf der Hauptachse (längs) mit gleichem Abstand*/
+            align-items: center;
+            /* Auf der Kreuzachse(längs) nach Boxgröße zentriert */
+        }
+        
+        nav li {
+            display: inline;
+            font-weight: bold;
         }
