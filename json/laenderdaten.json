@@ -2,10 +2,9 @@
     "version": "19.05.2021",
     "länderanzahl": 3,
     "autor": "Alexander Schmidt",
-    "länder": [
-        {
+    "laender": [{
             "name": "Russland",
-            "einfuhr": 0, 
+            "einfuhr": 0,
             "eu_mitgliedschaft": 0,
             "beschreibung": "Krim Krise, Einfuhr verboten"
         },
