@@ -19,6 +19,12 @@
             "einfuhr": 1,
             "eu_mitgliedschaft": 0,
             "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+        },
+        {
+            "name": "Griechenland",
+            "einfuhr": 1,
+            "eu_mitgliedschaft": 1,
+            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
         }
     ]
 }
