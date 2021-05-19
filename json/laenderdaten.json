@@ -1,0 +1,25 @@
+{
+    "version": "19.05.2021",
+    "länderanzahl": 3,
+    "autor": "Alexander Schmidt",
+    "länder": [
+        {
+            "name": "Russland",
+            "einfuhr": 0, 
+            "eu_mitgliedschaft": 0,
+            "beschreibung": "Krim Krise, Einfuhr verboten"
+        },
+        {
+            "name": "Frankreich",
+            "einfuhr": 1,
+            "eu_mitgliedschaft": 1,
+            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+        },
+        {
+            "name": "Türkei",
+            "einfuhr": 1,
+            "eu_mitgliedschaft": 0,
+            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+        }
+    ]
+}
