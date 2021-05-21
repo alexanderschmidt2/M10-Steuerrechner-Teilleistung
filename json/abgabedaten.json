@@ -2,19 +2,20 @@
     "version": "19.05.2021",
     "produktartenanzahl": 2,
     "autor": "Alexander Schmidt",
-    "produktart": [{
+    "produktart": [
+        {
             "name": "DvD",
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.035,
-            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
+            "zollsatz": 0.035, 
+            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
         },
         {
             "name": "Textilien",
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.12,
-            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
+            "zollsatz": 0.12, 
+            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
         }
     ]
 }
