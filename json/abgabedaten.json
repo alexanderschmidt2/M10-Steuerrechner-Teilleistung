@@ -5,6 +5,7 @@
     "produktart": [
         {
             "name": "DvD",
+            "einfuhr_verbot":["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.035, 
@@ -12,10 +13,35 @@
         },
         {
             "name": "Textilien",
+            "einfuhr_verbot":["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12, 
             "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+        },
+        {
+            "name": "Pistolen",
+            "einfuhr_verbot":["1"],
+            "verbrauchssteuer": 0.0,
+            "einfuhrumsatzsteuer": 0.19,
+            "zollsatz": 0.12, 
+            "beschreibung": "Waffen sind grundsätzlich illegal"
+        },
+        {
+            "name": "Käse",
+            "einfuhr_verbot":["Frankreich", "Türkei"],
+            "verbrauchssteuer": 0.0,
+            "einfuhrumsatzsteuer": 0.07,
+            "zollsatz": 0.12, 
+            "beschreibung": "Keine Lactosehaltige Milch einführen"
+        },
+        {
+            "name": "Mobiltelefone",
+            "einfuhr_verbot":["0"],
+            "verbrauchssteuer": 0.0,
+            "einfuhrumsatzsteuer": 0.19,
+            "zollsatz": 0.0, 
+            "beschreibung": ""
         }
     ]
 }
