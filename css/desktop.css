@@ -1,0 +1,62 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family: "BundesSans Web";
+    color: #2d6f9e;
+    /* offziell verwendete Zoll Farbe */
+}
+
+@font-face {
+    font-family: "BundesSans Web";
+    src: local ("BundesSans Web") url("schriften/BundesSans Web/BundesSans Web.ttf") format("truetype");
+}
+
+[class*=hidden]{
+    display:none;
+}
+
+[class*="html"] {
+    height: 100%;
+}
+
+[class*="body"] {
+    min-height: 100%;
+}
+
+[class*="navi"] {
+    padding-top: 4em;
+}
+
+[class*="naviBartem"] {
+    color: #2D6F9E;
+}
+
+[class*="fusszeile"] {
+    padding: 5em;
+    margin-top: 50em;
+}
+
+[class*="fuss"] {
+    position: sticky;
+    top: 100%;
+    padding: 10px;
+    background-color: lightgrey;
+    color: #2d6f9e;
+}
+
+[id*="kopfContainer"] {
+    height: 15em;
+    margin-top: 2%;
+    margin-bottom: 1%;
+
+}
+
+[id*="logo"] {
+    padding-top: 5em;
+    padding-left: 5em;
+}
+
+[id*="fusszeile"] {
+    background-color: lightgray;
+    position: sticky;
+}
