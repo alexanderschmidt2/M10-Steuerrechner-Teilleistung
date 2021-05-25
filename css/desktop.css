@@ -31,16 +31,10 @@
     color: #2D6F9E;
 }
 
-[class*="fusszeile"] {
-    padding: 5em;
-    margin-top: 50em;
-}
-
 [class*="fuss"] {
     position: sticky;
     top: 100%;
-    padding: 10px;
-    background-color: lightgrey;
+
     color: #2d6f9e;
 }
 
@@ -53,10 +47,8 @@
 
 [id*="logo"] {
     padding-top: 5em;
-    padding-left: 5em;
 }
 
 [id*="fusszeile"] {
-    background-color: lightgray;
     position: sticky;
 }
