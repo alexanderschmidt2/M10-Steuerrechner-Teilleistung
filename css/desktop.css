@@ -27,8 +27,10 @@
     padding-top: 4em;
 }
 
-[class*="naviBartem"] {
+[class*="navigationObj"] {
     color: #2D6F9E;
+    font-size: large;
+    font-weight: 500;
 }
 
 [class*="fuss"] {
