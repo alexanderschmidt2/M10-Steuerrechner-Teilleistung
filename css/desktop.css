@@ -42,8 +42,43 @@
 
 }
 
+[class*="carousel-control-prev-icon"] {
+    height: 10%;
+    width: 25%;
+    outline: white;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid #2D6F9E;
+    background-color: #2D6F9E;
+}
+[class*="carousel-control-next-icon"] {
+    height: 10%;
+    width: 25%;
+    outline: black;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid #2D6F9E;
+    background-color: #2D6F9E;
+}
+
+[class*="carousel-control-next"] {
+    color: red;
+}
+/*
+[id*="vorheriges"] {
+    content: '>';
+    font-size: 55px;
+    color: #2D6F9E;
+}
+
+[id*="naechstes"] {
+    content: '<';
+    font-size: 55px;
+    color: #2D6F9E;
+}
+*/
 [class*="pressemitteilungText"] {
-    color:black;
+    color: black;
 }
 
 [id*="kopfContainer"] {
