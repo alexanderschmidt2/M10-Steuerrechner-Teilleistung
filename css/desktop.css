@@ -38,6 +38,14 @@
     color: #2d6f9e;
 }
 
+[class*="pressemitteilungTitel"] {
+
+}
+
+[class*="pressemitteilungText"] {
+    color:black;
+}
+
 [id*="kopfContainer"] {
     height: 15em;
     margin-top: 2%;

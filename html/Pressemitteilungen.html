@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html class="html" lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Der Base Tag spezifiziert was unsere Basis URL ist für relative Verweise,
+    das Target Attribut spezifiziert unsere standard art Links zu öffnen. Self ist default-->
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="../css/bootstrap.css" />
+        <link rel="stylesheet" href="../css/desktop.css" />
+        <!-- CSS für den Computermonitor-->
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <title>Steuerplattform Zoll</title>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="../bilder/icon_zoll.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--TODO #1 @SimonSchade begründen oder kommentieren, was der Code soll-->
+        <meta name="author" content="Alexander Schmidt">
+        <!-- Autoren notwending oder eher nicht? -->
+        <meta name="description" content="Auf dieser Seite befinden sich aktuelle Pressemitteilungen des Zolls.">
+        <!-- Barrierearm für Screenreader-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Skalierung für Mobile Geräte-->
+        <link rel="stylesheet" href="css/drucker_version.css" type="text/css" media="print">
+        <!-- CSS für den Drucker-->
+        <script src="js/client_logik.js"></script>
+
+    </head>
+
+    <body class="body">
+        <nav class="navbar navbar-expand-md navbar-light" style="padding-top:3%">
+            <div class="container">
+                <a href="#" class="navbar-brand"><img src="../bilder/bild_zoll_gross.svg" alt="Zoll Logo" class="d-inline-block align-top" /><span class="hidden">Zoll</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="togglenavigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-end me-auto mb-2 mb-lg-0 pt-5">
+                        <li class="nav-item"><a class="nav-link" href="Einfuhrbestimmungen.html" style="color:#2D6F9E;font-size:large;font-weight:500">Einfuhrbestimmungen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Abgabenrechner.html" style="color:#2D6F9E;font-size:large;font-weight:500">Abgabenrechner</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#" style="color:#2D6F9E;font-size:large;font-weight:500">Pressemitteilungen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.html" style="color:#2D6F9E;font-size:large;font-weight:500">Impressum</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container pt-4">
+            <hr />
+            <h1>Pressemitteilungen</h1>
+            <div id="carouselExampleSlidesOnly" class="carousel slide pt-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active"> 
+                        <div class="row" style="background-color:#F4F8FA">
+                            <div class="col-md-7">
+                                <img src="../bilder/Illegal Beschäftige Zoll und Polizei durchsuchen Langenhagener Paketdienst.jpg" class="d-block w-100" alt="..." id="slider1">
+                            </div>
+                            <div class="col-md-2">
+                                <h3 class="pressemitteilungTitel">Neues Gewand</h3>
+                                <p class="pressemitteilungText">
+                                    Illegal Beschäftige: Zoll und Polizei durchsuchen Langenhagener Paketdienst.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row" style="background-color:#F4F8FA">
+                            <div class="col-md-7">
+                                <img src="../bilder/Alarmierend Zoll deckt in Niedersachsen hunderte Verstöße gegen Mindestlohn auf.jpg" class="d-block w-100 h-15" alt="...">
+                            </div>
+                            <div class="col-md-2">
+                                <h3 class="pressemitteilungTitel">Fundgrube Zolleinsatz</h3>
+                                <p class="pressemitteilungText">
+                                    Alarmierend Zoll deckt in Niedersachsen hunderte Verstöße gegen Mindestlohn auf.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row" style="background-color:#F4F8FA">
+                            <div class="col-md-7">
+                                <img src="../bilder/Hamburger Zoll beschlagnahmt bei Sommerhitze Weihnachtsartikel.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="col-md-2">
+                                <h3 class="pressemitteilungTitel">Großrazzia</h3>
+                                <p class="pressemitteilungText">
+                                    Hamburger Zoll beschlagnahmt bei Sommerhitze Weihnachtsartikel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="row" style="background-color:#F4F8FA">
+                            <div class="col-md-7">
+                                <img src="../bilder/Anzeige - Der Zoll – Im Einsatz für Bürger, Wirtschaft und Umwelt.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="col-md-2">
+                                <h3 class="pressemitteilungTitel">Umstrukturierung</h3>
+                                <p class="pressemitteilungText">
+                                    Der Zoll – Im Einsatz für Bürger, Wirtschaft und Umwelt.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+
+    </body>
+
+    <footer class="fuss" style="height:10em">
+        <div class="container" id="fusszeile">
+            <img class="pt-0" id="logo2" src="../bilder/GZD_Logo.svg" alt="GZD Logo" style="width:auto;height:auto;" />
+            <div class="row text-start text-md-left pt-3">
+                <div class="col-md-2 text-start text-md-left">
+                    <a style="text-decoration:none;" href="index.html">Impressum</a>
+                </div>
+                <div class="col-md-2 text-start text-md-left">
+                    <a style="text-decoration:none;" href="#kopfContainer">Zum&nbspSeitenanfang</a>
+                </div>
+                <div class="col-md-2 text-start text-md-left">
+                    <a style="text-decoration:none;" href="#">Kontakt</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
