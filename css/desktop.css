@@ -44,6 +44,10 @@
 
 }
 
+[class*="pressemitteilungText"] {
+    color: black;
+}
+
 [class*="carousel-control-prev-icon"] {
     height: 10%;
     width: 25%;
@@ -79,9 +83,7 @@
     color: #2D6F9E;
 }
 */
-[class*="pressemitteilungText"] {
-    color: black;
-}
+
 
 [id*="kopfContainer"] {
     height: 15em;
