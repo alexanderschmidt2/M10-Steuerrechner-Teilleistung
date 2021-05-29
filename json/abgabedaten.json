@@ -28,7 +28,7 @@
         },
         {
             "name": "Kaese",
-            "einfuhr_verbot": ["Frankreich", "Türkei"],
+            "einfuhr_verbot": ["Frankreich", "Tuerkei"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.07,
             "zollsatz": 0.12,
@@ -40,7 +40,7 @@
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.0,
-            "beschreibung": ""
+            "beschreibung": "Handy hehe"
         }
     ]
 }
