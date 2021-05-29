@@ -2,45 +2,44 @@
     "version": "19.05.2021",
     "produktartenanzahl": 2,
     "autor": "Alexander Schmidt",
-    "produktart": [
-        {
+    "produktart": [{
             "name": "DvD",
-            "einfuhr_verbot":["0"],
+            "einfuhr_verbot": ["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.035, 
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "zollsatz": 0.035,
+            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
         },
         {
             "name": "Textilien",
-            "einfuhr_verbot":["0"],
+            "einfuhr_verbot": ["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.12, 
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "zollsatz": 0.12,
+            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
         },
         {
             "name": "Pistolen",
-            "einfuhr_verbot":["1"],
+            "einfuhr_verbot": ["1"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.12, 
-            "beschreibung": "Waffen sind grundsätzlich illegal"
+            "zollsatz": 0.12,
+            "beschreibung": "Waffen sind illegal"
         },
         {
-            "name": "Käse",
-            "einfuhr_verbot":["Frankreich", "Türkei"],
+            "name": "Kaese",
+            "einfuhr_verbot": ["Frankreich", "Türkei"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.07,
-            "zollsatz": 0.12, 
-            "beschreibung": "Keine Lactosehaltige Milch einführen"
+            "zollsatz": 0.12,
+            "beschreibung": "Keine Lactosehaltige Milch einfuehren"
         },
         {
             "name": "Mobiltelefone",
-            "einfuhr_verbot":["0"],
+            "einfuhr_verbot": ["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.0, 
+            "zollsatz": 0.0,
             "beschreibung": ""
         }
     ]
