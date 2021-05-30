@@ -1,8 +1,8 @@
 window.addEventListener("load", init);
 
 var dom_inhalt = [];
-var dom_inhalt_2 = [];
 var daten_cache;
+var url_server = "http://localhost:3000/php/server_logik.php";
 
 
 //funktion: nomen_verb
@@ -17,15 +17,14 @@ function init() {
 
 function laender_hinzufuegen() {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3000/php/server_logik.php?auswahl=land");
+    xhr.open("GET", url_server + "?auswahl=land");
     xhr.send();
     xhr.addEventListener("load", function() { //Definitv ein paar Hilfeboxen überlegen
         if (xhr.status != 200) {
-            box_machen("fehler", "level_1", null, null, "Es ist ein Fehler aufgetreten")
-                //TODO: AUF DIE FEHLERART ANPASSEN
+            box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten")
             console.log("Fehler ist aufgetreten, Server nicht erreichbar");
         } else {
-            box_machen("select", "level_1", "land", JSON.parse(xhr.responseText), "Land"); //Muellsammler Rework, muss besser klappen,
+            box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land"); //Muellsammler Rework, muss besser klappen,
             waren_hinzufuegen();
         }
     })
@@ -36,31 +35,33 @@ function laender_hinzufuegen() {
 function waren_hinzufuegen() { //TODO: FIX mit Default Option
     let land_auswahl = document.getElementById("land");
     if (land_auswahl != null) {
-        land_auswahl.addEventListener("change", function() {
+        land_auswahl.addEventListener("change", function() { //AN DEN LÄNDERN ÄNDERT SICH WAS
+            muellsammler("2");
+            muellsammler("3");
             land_ausgewaehlt = land_auswahl.value
             if (land_ausgewaehlt != "default") {
                 let xhr = new XMLHttpRequest(); //konsolidieren mit der Länderwahl? 
-                xhr.open("GET", "http://localhost:3000/php/server_logik.php?" + "auswahl=einfuhr&landwahl=" + land_ausgewaehlt);
+                xhr.open("GET", url_server + "?auswahl=einfuhr&landwahl=" + land_ausgewaehlt); //ZU VIEL? SW FRAGEN
                 xhr.send();
                 xhr.addEventListener("load", function() {
                     if (xhr.status != 200) {
-                        box_machen("fehler", "level_2", null, null, "Es ist ein Fehler aufgetreten") //TODO: AUF DIE FEHLERART ANPASSEN
+                        box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten") //TODO: AUF DIE FEHLERART ANPASSEN
                     } else {
                         let laender_einfuhr = JSON.parse(xhr.responseText);
                         if (laender_einfuhr[0] == 1) {
                             let xhr = new XMLHttpRequest();
-                            xhr.open("GET", "http://localhost:3000/php/server_logik.php?auswahl=waren");
+                            xhr.open("GET", url_server + "?auswahl=waren");
                             xhr.send();
                             xhr.addEventListener("load", function() {
                                 if (xhr.status != 200) {
-                                    box_machen("fehler", "level_2", null, null, "Es ist ein Fehler aufgetreten hier");
+                                    box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten hier");
                                 } else {
-                                    box_machen("select", "level_2", "ware", JSON.parse(xhr.responseText), "Waren");
+                                    box_machen("select", "2", "ware", JSON.parse(xhr.responseText), "Waren");
                                     eingabe_hinzufeugen(land_ausgewaehlt);
                                 }
                             })
                         } else {
-                            box_machen("fehler", "level_2", null, null, laender_einfuhr[1]) //TODO: AUF DIE FEHLERART ANPASSEN
+                            box_machen("fehler", "2", null, null, laender_einfuhr[1]) //TODO: AUF DIE FEHLERART ANPASSEN im php, wenn Einfuhr der Waren generell verboten
                         }
                     }
                 })
@@ -72,22 +73,26 @@ function waren_hinzufuegen() { //TODO: FIX mit Default Option
 function eingabe_hinzufeugen(land_ausgewaehlt) {
     let waren_auswahl = document.getElementById("ware");
     if (waren_auswahl != null) {
-        waren_auswahl.addEventListener("change", function() {
+        waren_auswahl.addEventListener("change", function() { //AN DEN WAREN ÄNDERT SICH was
+            muellsammler("3");
             ware_ausgewaehlt = waren_auswahl.value;
             if (ware_ausgewaehlt != "default") {
                 let xhr = new XMLHttpRequest();
-                xhr.open("GET", "http://localhost:3000/php/server_logik.php?" + "auswahl=einfuhr_verbot&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
+                xhr.open("GET", url_server + "?auswahl=einfuhr_verbot&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
                 xhr.send();
                 xhr.addEventListener("load", function() {
                     if (xhr.status != 200) {
-                        box_machen("fehler", "level_3", null, null, "Es ist ein Fehler aufgetreten");
+                        box_machen("fehler", "3", null, null, "Es ist ein Fehler aufgetreten");
                     } else {
                         console.log(xhr.responseText);
                         let eingabe_antwort = JSON.parse(xhr.responseText);
                         if (eingabe_antwort[0] == "0") {
-                            box_machen("input", "level_3", "warenwert", null, "Warenwert");
+                            box_machen("input", "3", "warenwert", null, "Warenwert in €");
+                            warenwert_auswahl = document.getElementById("warenwert");
+                            warenwert_ausgewaehlt = warenwert_auswahl.value;
+                            warenwert_auswahl.addEventListener("change", function() { rechner(warenwert_ausgewaehlt, land_ausgewaehlt, ware_ausgewaehlt) });
                         } else {
-                            box_machen("fehler", "level_3", null, null, eingabe_antwort[1])
+                            box_machen("fehler", "3", null, null, eingabe_antwort[1])
                         };
                     }
                 });
@@ -97,9 +102,27 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
     }
 };
 
+function rechner(warenwert_ausgewaehlt, land_ausgewaehlt, ware_ausgewaehlt) {
+    box_machen("button", "3", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen");
+    document.getElementById("knopf_berechnen").addEventListener("click", function() {
+        let xhr = new XMLHttpRequest(); //SEHR unschön, eine Information, die der Server schon hat, muss nachgeschickt werden
+        xhr.open("GET", url_server + "?auswahl=rechner&warenwert=" + warenwert_ausgewaehlt +
+            "&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
+        xhr.send();
+        xhr.addEventListener("load", function() {
+            if (xhr.status != 200) {
+                box_machen("fehler", "4", null, null, "Es ist ein Fehler aufgetreten");
+            } else {
+                console.log(xhr.responseText);
+            }
+        })
 
-function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschreibung) {
-    muellsammler(box_id); //Wenn es diese Box bereits gibt muss die Box entfernt werden und durch eine neue Box mit entsprechendem Level ersetzt werden!
+    });
+
+};
+
+
+function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschreibung) { //Wenn es diese Box bereits gibt muss die Box entfernt werden und durch eine neue Box mit entsprechendem Level ersetzt werden!
     let box = document.createElement("div");
     box.id = box_id;
     if (eingabe_art != "fehler") {
@@ -120,8 +143,12 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 eingabe.appendChild(option);
             }
         } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
-            console.log("hier");
             eingabe.setAttribute("type", "number");
+            eingabe.setAttribute("min", 1);
+            eingabe.setAttribute("max", 100000);
+        } else if (eingabe.tagName == "BUTTON") {
+            eingabe.innerHTML = eingabe_parameter;
+
         };
         box.appendChild(eingabe_label);
         box.appendChild(eingabe);
@@ -141,11 +168,11 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
 
 
 function muellsammler(id) {
-    if (dom_inhalt.indexOf(id) != -1) {
+    while (dom_inhalt.indexOf(id) != -1) {
         document.getElementById("abgabenrechner").removeChild(document.getElementById(id));
         dom_inhalt = dom_inhalt.filter(function(e) { return e !== id });
+        id = toString(parseInt(id) + 1)
     }
-
 };
 
 function cache_laden() {};

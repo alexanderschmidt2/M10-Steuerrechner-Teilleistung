@@ -14,11 +14,20 @@ $warendaten = json_decode($data_waren);
 
 $response = array();
 
+//funktionen wie "getLand" ergänzen 
+
+function getLand($name, $laenderdaten){
+    foreach ($laenderdaten->laender as $value) {
+        if ($value->name == $name) {
+            return $value;
+        }
+    }
+};
+
 switch ($_GET["auswahl"]) {
     case "land":
         foreach ($laenderdaten->laender as $value) {
-            $temp = $value->name;
-            array_push($response, $temp);
+            array_push($response, $value->name);
         }
         break;
     case "einfuhr":
@@ -40,15 +49,15 @@ switch ($_GET["auswahl"]) {
         foreach ($warendaten->produktart as $value) {
             if ($value->name == $_GET["warenwahl"]) {
                 if ($value->einfuhr_verbot[0] == "1") {
-                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung ." die Einfuhr ist somit verboten");
+                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . " die Einfuhr ist somit verboten");
                     break;
                 } elseif ($value->einfuhr_verbot[0] == "0") {
-                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung ." die Einfuhr ist elaubt");
+                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . " die Einfuhr ist elaubt");
                     break;
                 } else {
                     for ($i = 0; $i <= count($value->einfuhr_verbot); $i++) {
                         if ($value->einfuhr_verbot[$i] == $_GET["landwahl"]) {
-                            array_push($response, "1", $value->beschreibung." die Einfuhr ist somit aus ".$_GET["landwahl"]." nicht erlaubt");
+                            array_push($response, "1", $value->beschreibung . " die Einfuhr ist somit aus " . $_GET["landwahl"] . " nicht erlaubt");
                             break;
                         }
                     }
@@ -56,8 +65,11 @@ switch ($_GET["auswahl"]) {
                     break;
                 }
             }
-        };
-    break;
+        }
+        break;
+    case "rechner";
+        var_dump($_GET);
+        break;
 }
 
 http_response_code(200);
