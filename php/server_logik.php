@@ -14,10 +14,18 @@ $warendaten = json_decode($data_waren);
 
 $response = array();
 
-//funktionen wie "getLand" ergänzen 
 
-function getLand($name, $laenderdaten){
+function getLand($name, $laenderdaten)
+{
     foreach ($laenderdaten->laender as $value) {
+        if ($value->name == $name) {
+            return $value;
+        }
+    }
+};
+function getWare($name, $warendaten)
+{
+    foreach ($warendaten->produktart as $value) {
         if ($value->name == $name) {
             return $value;
         }
@@ -31,18 +39,12 @@ switch ($_GET["auswahl"]) {
         }
         break;
     case "einfuhr":
-        foreach ($laenderdaten->laender as $value) {
-            $temp = $value->name;
-            if ($temp == $_GET["landwahl"]) {
-                array_push($response, $value->einfuhr, $value->beschreibung);
-                break;
-            }
-        }
+        $land = getLand($_GET["landwahl"], $laenderdaten);
+        array_push($response, $land->einfuhr, $land->beschreibung);
         break;
     case "waren":
         foreach ($warendaten->produktart as $value) {
-            $temp = $value->name;
-            array_push($response, $temp);
+            array_push($response, $value->name);
         }
         break;
     case "einfuhr_verbot";
@@ -67,8 +69,48 @@ switch ($_GET["auswahl"]) {
             }
         }
         break;
-    case "rechner";
-        var_dump($_GET);
+    case "rechner"; //SIMON MUSS DIE LOGIK KONTROLLIEREN
+        $land = getLand($_GET["landwahl"], $laenderdaten);
+        $ware = getWare($_GET["warenwahl"], $warendaten);
+        $warenwert = floatval($_GET["warenwert"]); //TODO: simon du sollst hier die fachlich richtige logik ergaenzen
+        $beschreibung;
+        if ($land->eu_mitgliedschaft == "1") {
+            $beschreibung = "Das Land " . $land->name . " ist ein EU Mitgliedstaat, deswegen faellt kein Zoll an ";
+            if ($warenwert < 150) {
+                $beschreibung = $beschreibung . " der Warenwert ist unter 150 Euro weitere Abgaben fallen also ebenfalls nicht an";
+                array_push($response, "0", $beschreibung);
+                break;
+            } elseif ($warenwert > 150 && $ware->verbrauchssteuer != 0.0) {
+                $beschreibung = $beschreibung . " es faellt jedoch Einfuhrumsatzsteuer und da es sich bei " . $ware->name . " um ein Verbrauchsgut handelt auch Verbrauchsteuer an"; //TODO: Simon Werte konkartinieren
+                $abgaben = $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
+                array_push($response, $abgaben, $beschreibung);
+                break;
+            } else {
+                $beschreibung = $beschreibung . " es faellt jedoch Einfuhrumsatzsteuer an";
+                $abgaben = $warenwert * $ware->einfuhrumsatzsteuer;
+                array_push($response, $abgaben, $beschreibung);
+                break;
+            }
+        } else {
+            $beschreibung = "Das Land " . $land->name . " ist kein EU Mitgliedstaat, deswegen faellt Zoll an";
+            if ($warenwert < 150) {
+                $beschreibung = $beschreibung . " der Warenwert ist unter 150 Euro weitere Abgaben fallen also nicht an";
+                $abgaben = $warenwert * $ware->zollsatz;
+                array_push($response, $abgaben, $beschreibung);
+                break;
+            } elseif ($warenwert > 150 && $ware->verbrauchssteuer != 0.0) {
+                $beschreibung = $beschreibung . " es auch Einfuhrumsatzsteuer und da es sich bei " . $ware->name . " um ein Verbrauchsgut handelt auch Verbrauchsteuer an"; //TODO: Simon Werte konkartinieren
+                $abgaben = $warenwert * $ware->zollsatz + $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
+                array_push($response, $abgaben, $beschreibung);
+                break;
+            } else {
+                $beschreibung = $beschreibung . " es faellt auch Einfuhrumsatzsteuer an";
+                $abgaben = $warenwert * $ware->zollsatz + $warenwert * $ware->einfuhrumsatzsteuer;
+                array_push($response, $abgaben, $beschreibung);
+                break;
+            }
+        };
+
         break;
 }
 

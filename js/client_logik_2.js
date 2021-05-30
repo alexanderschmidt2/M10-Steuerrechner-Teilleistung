@@ -11,8 +11,6 @@ var url_server = "http://localhost:3000/php/server_logik.php";
 
 function init() {
     laender_hinzufuegen();
-
-    //eingabe_hinzufeugen();
 };
 
 function laender_hinzufuegen() {
@@ -22,7 +20,7 @@ function laender_hinzufuegen() {
     xhr.addEventListener("load", function() { //Definitv ein paar Hilfeboxen überlegen
         if (xhr.status != 200) {
             box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten")
-            console.log("Fehler ist aufgetreten, Server nicht erreichbar");
+
         } else {
             box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land"); //Muellsammler Rework, muss besser klappen,
             waren_hinzufuegen();
@@ -37,7 +35,6 @@ function waren_hinzufuegen() { //TODO: FIX mit Default Option
     if (land_auswahl != null) {
         land_auswahl.addEventListener("change", function() { //AN DEN LÄNDERN ÄNDERT SICH WAS
             muellsammler("2");
-            muellsammler("3");
             land_ausgewaehlt = land_auswahl.value
             if (land_ausgewaehlt != "default") {
                 let xhr = new XMLHttpRequest(); //konsolidieren mit der Länderwahl? 
@@ -61,6 +58,7 @@ function waren_hinzufuegen() { //TODO: FIX mit Default Option
                                 }
                             })
                         } else {
+
                             box_machen("fehler", "2", null, null, laender_einfuhr[1]) //TODO: AUF DIE FEHLERART ANPASSEN im php, wenn Einfuhr der Waren generell verboten
                         }
                     }
@@ -84,13 +82,14 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
                     if (xhr.status != 200) {
                         box_machen("fehler", "3", null, null, "Es ist ein Fehler aufgetreten");
                     } else {
-                        console.log(xhr.responseText);
                         let eingabe_antwort = JSON.parse(xhr.responseText);
                         if (eingabe_antwort[0] == "0") {
                             box_machen("input", "3", "warenwert", null, "Warenwert in €");
                             warenwert_auswahl = document.getElementById("warenwert");
-                            warenwert_ausgewaehlt = warenwert_auswahl.value;
-                            warenwert_auswahl.addEventListener("change", function() { rechner(warenwert_ausgewaehlt, land_ausgewaehlt, ware_ausgewaehlt) });
+                            warenwert_auswahl.addEventListener("change", function() {
+                                muellsammler("4");
+                                rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt)
+                            });
                         } else {
                             box_machen("fehler", "3", null, null, eingabe_antwort[1])
                         };
@@ -102,18 +101,24 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
     }
 };
 
-function rechner(warenwert_ausgewaehlt, land_ausgewaehlt, ware_ausgewaehlt) {
-    box_machen("button", "3", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen");
+function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
+    box_machen("button", "4", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen");
+    warenwert_ausgewaehlt = warenwert_auswahl.value;
+    warenwert_ausgewahlt = toString(warenwert_ausgewaehlt);
     document.getElementById("knopf_berechnen").addEventListener("click", function() {
+        muellsammler("4");
         let xhr = new XMLHttpRequest(); //SEHR unschön, eine Information, die der Server schon hat, muss nachgeschickt werden
         xhr.open("GET", url_server + "?auswahl=rechner&warenwert=" + warenwert_ausgewaehlt +
             "&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
         xhr.send();
         xhr.addEventListener("load", function() {
             if (xhr.status != 200) {
-                box_machen("fehler", "4", null, null, "Es ist ein Fehler aufgetreten");
+                console.log("hier");
+                box_machen("fehler", "5", null, null, "Es ist ein Fehler aufgetreten");
             } else {
-                console.log(xhr.responseText);
+                let ergebnis = JSON.parse(xhr.responseText);
+                box_machen("ergebnis", "5", "ergebnis", ergebnis, null);
+
             }
         })
 
@@ -125,7 +130,8 @@ function rechner(warenwert_ausgewaehlt, land_ausgewaehlt, ware_ausgewaehlt) {
 function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschreibung) { //Wenn es diese Box bereits gibt muss die Box entfernt werden und durch eine neue Box mit entsprechendem Level ersetzt werden!
     let box = document.createElement("div");
     box.id = box_id;
-    if (eingabe_art != "fehler") {
+    dom_inhalt.push(box_id);
+    if (eingabe_art != "fehler" && eingabe_art != "ergebnis") {
         let eingabe = document.createElement(eingabe_art);
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
@@ -148,31 +154,62 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
             eingabe.setAttribute("max", 100000);
         } else if (eingabe.tagName == "BUTTON") {
             eingabe.innerHTML = eingabe_parameter;
-
-        };
+        }
         box.appendChild(eingabe_label);
         box.appendChild(eingabe);
-        document.getElementById("abgabenrechner").appendChild(box);
-        dom_inhalt.push(box_id);
+    } else if (eingabe_art == "ergebnis") {
+        let ergebniswert = document.createElement("p");
+        let ergebnisbeschreibung = document.createElement("p");
+        ergebniswert.innerHTML = eingabe_parameter[0];
+        ergebnisbeschreibung.innerHTML = eingabe_parameter[1];
+        box.appendChild(ergebniswert);
+        box.appendChild(ergebnisbeschreibung);
     } else {
         fehler_text = document.createElement("p");
         fehler_text.innerHTML = beschreibung;
         box.appendChild(fehler_text);
-        dom_inhalt.push(box_id);
-        document.getElementById("abgabenrechner").appendChild(box);
-
     }
+    document.getElementById("abgabenrechner").appendChild(box);
+
 };
 
+function muellsammler(id) { //WORKAROUND, bis ich mich mit SW beraten habe
+    switch (id) {
+        case "2":
+            if (document.getElementById("2") != null) {
+                document.getElementById("2").remove();
+            }
+            if (document.getElementById("3") != null) {
+                document.getElementById("3").remove();
+            }
+            if (document.getElementById("4") != null) {
+                document.getElementById("4").remove();
+            }
+            if (document.getElementById("4") != null) {
+                document.getElementById("4").remove();
+            }
+        case "3":
+            if (document.getElementById("3") != null) {
+                document.getElementById("3").remove();
+            }
+            if (document.getElementById("4") != null) {
+                document.getElementById("4").remove();
+            }
+            if (document.getElementById("5") != null) {
+                document.getElementById("5").remove();
+            }
+        case "4":
+            if (document.getElementById("4") != null) {
+                document.getElementById("4").remove();
+            }
+            if (document.getElementById("5") != null) {
+                document.getElementById("5").remove();
+            }
 
-
-
-function muellsammler(id) {
-    while (dom_inhalt.indexOf(id) != -1) {
-        document.getElementById("abgabenrechner").removeChild(document.getElementById(id));
-        dom_inhalt = dom_inhalt.filter(function(e) { return e !== id });
-        id = toString(parseInt(id) + 1)
     }
+
+
 };
+
 
 function cache_laden() {};

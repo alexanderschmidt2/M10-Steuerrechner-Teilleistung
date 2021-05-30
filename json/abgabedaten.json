@@ -29,8 +29,8 @@
         {
             "name": "Kaese",
             "einfuhr_verbot": ["Frankreich", "Tuerkei"],
-            "verbrauchssteuer": 0.0,
-            "einfuhrumsatzsteuer": 0.07,
+            "verbrauchssteuer": 0.07,
+            "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
             "beschreibung": "Keine Lactosehaltige Milch einfuehren"
         },
@@ -39,7 +39,7 @@
             "einfuhr_verbot": ["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.0,
+            "zollsatz": 0.12,
             "beschreibung": "Handy hehe"
         }
     ]
