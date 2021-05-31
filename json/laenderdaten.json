@@ -1,11 +1,11 @@
 {
     "version": "19.05.2021",
-    "länderanzahl": 6,
+    "länderanzahl": 3,
     "autor": "Alexander Schmidt",
     "laender": [{
             "name": "Russland",
-            "einfuhr": "0",
-            "eu_mitgliedschaft": "1",
+            "einfuhr": "1",
+            "eu_mitgliedschaft": "0",
             "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
         },
         {
@@ -31,6 +31,8 @@
             "einfuhr": "1",
             "eu_mitgliedschaft": "0",
             "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
+        },
+        
         {
             "name": "Sizilien",
             "einfuhr": "1",
