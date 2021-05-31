@@ -59,7 +59,7 @@ switch ($_GET["auswahl"]) {
                 } else {
                     for ($i = 0; $i <= count($value->einfuhr_verbot); $i++) {
                         if ($value->einfuhr_verbot[$i] == $_GET["landwahl"]) {
-                            array_push($response, "1", $value->beschreibung . " Die Einfuhr ist somit aus " . $_GET["landwahl"] . " nicht erlaubt.");
+                            array_push($response, "1", $value->beschreibung . ". die Einfuhr ist somit aus " . $_GET["landwahl"] . " nicht erlaubt.");
                             break;
                         }
                     }
