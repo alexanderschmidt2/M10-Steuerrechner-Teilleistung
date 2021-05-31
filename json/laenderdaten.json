@@ -5,38 +5,37 @@
     "laender": [{
             "name": "Russland",
             "einfuhr": "0",
-            "eu_mitgliedschaft": "0",
-            "beschreibung": "Krim Krise, Einfuhr verboten"
+            "eu_mitgliedschaft": "1",
+            "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
         },
         {
             "name": "Frankreich",
             "einfuhr": "1",
             "eu_mitgliedschaft": "1",
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "beschreibung": "EU Mitglied seit 1951. Einfuhr erlaubt."
         },
         {
             "name": "Tuerkei",
             "einfuhr": "1",
             "eu_mitgliedschaft": "0",
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
         },
         {
             "name": "Griechenland",
             "einfuhr": "1",
             "eu_mitgliedschaft": "1",
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "beschreibung": "EU Mitglied seit 1981. Einfuhr erlaubt."
         },
         {
             "name": "Mazedonien",
             "einfuhr": "1",
             "eu_mitgliedschaft": "0",
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
-        },
+            "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
         {
             "name": "Sizilien",
             "einfuhr": "1",
             "eu_mitgliedschaft": "0",
-            "beschreibung": "Keine Pornos oder Nazibildchen einführen"
+            "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
         }
 
     ]
