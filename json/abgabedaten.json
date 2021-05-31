@@ -7,10 +7,8 @@
             "einfuhr_verbot": ["0"],
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
-            "zollsatz": 0.035,
-            "beschreibung": "Alle DVDs mit dem Rating G, PG, PG-13 und R (Rating für Gewalt/Sprache) werden in der Regel zugelassen.
-                            Für DVDs mit den Ratings R (pornografische Inhalte) und NC-17 besteht eine größere Wahrscheinlichkeit der Zurückweisung.
-                            Einige DVDs weisen kein Rating auf, und die Zollbehörden in einigen Ländern können die Einfuhr auf der Basis ihrer Einschätzung der DVD als verboten ablehnen."
+            "zollsatz": 0.0,
+            "beschreibung": "Alle DVDs mit dem Rating G, PG, PG-13 und R (Gewalt/Sprache) werden in der Regel zugelassen. Für DVDs mit dem Rating R (pornografische Inhalte) besteht eine groeßere Wahrscheinlichkeit der Zurückweisung. Einige DVDs weisen kein Rating auf und die Zollbehoerden koennen die Einfuhr auf Basis ihrer Einschaetzung der DVD verbieten."
 
             
         },
@@ -20,9 +18,7 @@
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
-            "beschreibung": "Die kommerzielle Einfuhr bestimmter Textilien aus einzelnen Nicht-EU-Staaten kann von der Vorlage einer Einfuhrgenehmigung abhängig gemacht werden.
-                            Beschränkungen bestehen derzeit für bestimmte Textilien aus Nordkorea.
-                            Die Einfuhrgenehmigung muss bereits vor der Einfuhr der Textilien von den dafür zuständigen Behörden ausgestellt und zum Zeitpunkt der Einfuhr zusammen mit den Textilien bei der zuständigen Zollstelle vorgelegt werden."
+            "beschreibung": "Die kommerzielle Einfuhr bestimmter Textilien aus einzelnen Nicht-EU-Staaten kann von der Vorlage einer Einfuhrgenehmigung abhaengig gemacht werden. Beschraenkungen bestehen derzeit für bestimmte Textilien aus Nordkorea. Die Einfuhrgenehmigung muss bereits vor der Einfuhr der Textilien von der dafür zustaendigen Behoerde ausgestellt und zum Zeitpunkt der Einfuhr zusammen mit den Textilien bei der zustaendigen Zollstelle vorgelegt werden."
         },
         {
             "name": "Pistolen",
