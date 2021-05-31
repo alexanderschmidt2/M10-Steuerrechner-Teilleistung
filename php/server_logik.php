@@ -69,51 +69,44 @@ switch ($_GET["auswahl"]) {
             }
         }
         break;
-    case "rechner"; 
+    case "rechner";
         $land = getLand($_GET["landwahl"], $laenderdaten);
         $ware = getWare($_GET["warenwahl"], $warendaten);
-        $warenwert = floatval($_GET["warenwert"]); 
+        $warenwert = floatval($_GET["warenwert"]);
         $beschreibung;
-        if ($land->eu_mitgliedschaft == "1") {//Bei EU Mitgliedschaft fällt nur eine eventuelle Verbrauchssteuer an. Handel ansonsten frei.
+        if ($land->eu_mitgliedschaft == "1") { //Bei EU Mitgliedschaft fällt nur eine eventuelle Verbrauchssteuer an. Handel ansonsten frei.
             $beschreibung = "Das Land " . $land->name . " ist ein EU Mitgliedstaat, deswegen faellt weder Zoll, noch eine Einfuhrumsatzsteuer an ";
-            if ($ware->verbrauchssteuer !=0) {
+            if ($ware->verbrauchssteuer != 0) {
                 $beschreibung = $beschreibung . " auf diese Ware faellt doch die Verbrauchssteuer an.";
                 $abgaben = $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
-            } 
-            else {
+            } else {
                 $beschreibung = $beschreibung . " eine Verbrauchssteuer fällt ebenfalls nicht an.";
-                array_push($respone, "0", $beschreibung);
+                array_push($response, "0", $beschreibung);
+                break;
             }
-            }
-            
-        } else { // Bei Einfuhr aus nicht EU Land, fällt ab 22 Euro Warenwert die Einfuhrumsatzsteuer an. Ab 150 Euro kommt dann noch Zoll dazu. Die Verbrauchssteuer ist produktabhängig.
+        } else {
             $beschreibung = "Das Land " . $land->name . " ist kein EU Mitgliedstaat, deswegen fallen gegebenenfalls Zoll und die Einfuhrumsatzsteuer an";
             if ($warenwert < 22) {
                 $beschreibung = $beschreibung . " der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an";
                 array_push($response, "0", $beschreibung);
                 break;
-            }
-            elseif ($warenwert < 22 && $ware->verbrauchssteuer != 0.0){
+            } elseif ($warenwert < 22 && $ware->verbrauchssteuer != 0.0) {
                 $beschreibung = $beschreibung . " der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an. Jedoch ist die Verbrauchssteuer faellig.";
                 $abgaben = $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
-            }
-            elseif ($warenwert >22 && $warenwert < 150){
+            } elseif ($warenwert > 22 && $warenwert < 150) {
                 $beschreibung = $beschreibung . " der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
                 $abgaben = $warenwert * $ware->einfuhrumsatzsteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
-
-             elseif ($warenwert >22 && $warenwert < 150 && $ware->verbrauchssteuer != 0){
+            } elseif ($warenwert > 22 && $warenwert < 150 && $ware->verbrauchssteuer != 0) {
                 $beschreibung = $beschreibung . " der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Außerdem ist die Verbrauchssteuer faellig. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
                 $abgaben = $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
-             }
-
             } elseif ($warenwert > 150 && $ware->verbrauchssteuer != 0.0) {
                 $beschreibung = $beschreibung . " es fallen sowohl Einfuhrumsatzsteuer und der Zollsatz an. Da es sich außerdem bei " . $ware->name . " um ein Verbrauchsgut handelt, faellt auch Verbrauchsteuer an"; //TODO: Simon Werte konkartinieren
                 $abgaben = $warenwert * $ware->zollsatz + $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
@@ -126,7 +119,6 @@ switch ($_GET["auswahl"]) {
                 break;
             }
         };
-
         break;
 }
 

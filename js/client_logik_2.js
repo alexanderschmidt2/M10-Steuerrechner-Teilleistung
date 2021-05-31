@@ -116,6 +116,7 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
                 console.log("hier");
                 box_machen("fehler", "5", null, null, "Es ist ein Fehler aufgetreten");
             } else {
+                console.log(xhr.responseText);
                 let ergebnis = JSON.parse(xhr.responseText);
                 box_machen("ergebnis", "5", "ergebnis", ergebnis, null);
 
