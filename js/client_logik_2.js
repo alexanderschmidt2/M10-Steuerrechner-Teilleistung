@@ -2,8 +2,9 @@ window.addEventListener("load", init);
 
 var dom_inhalt = [];
 var daten_cache;
-var url_server = "http://localhost:3000/php/server_logik.php";
-
+//var url_server = "http://localhost:3000/php/server_logik.php";
+//var url_server = "http://localhost/php/server_logik.php";
+var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
 
 //funktion: nomen_verb
 // wir laden uns eine Konfiguration 
