@@ -132,11 +132,21 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
 function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschreibung) { //Wenn es diese Box bereits gibt muss die Box entfernt werden und durch eine neue Box mit entsprechendem Level ersetzt werden!
     let box = document.createElement("div");
     box.id = box_id;
+    //Fügt dem erzeugten div eine Klasse des Bootstrap hinzu, hier padding.
+    box.classList.add('p-2');
     dom_inhalt.push(box_id);
     if (eingabe_art != "fehler" && eingabe_art != "ergebnis") {
         let eingabe = document.createElement(eingabe_art);
+        //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
+        eingabe.classList.add('fs-4');
+        //durch das Hinzufügen der Klasse p-1 wird ein padding hinzugefügt und somit der Abstand von dem Text in der Auswahlbox und Auswahlbox erhöht.
+        eingabe.classList.add('p-1') ;
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
+        //durch das Hinzufügen der Klasse me-3 wird ein margin rechts hinzugefügt und somit der Abstand zwischen Label und Auswahlbox erhöht.
+        eingabe_label.classList.add('me-3') ;
+        //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
+        eingabe_label.classList.add('fs-4');
         eingabe_label.innerHTML = beschreibung;
         eingabe_label.htmlFor = eingabe_id;
         if (eingabe.tagName == "SELECT") {
@@ -161,13 +171,23 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         box.appendChild(eingabe);
     } else if (eingabe_art == "ergebnis") {
         let ergebniswert = document.createElement("p");
+        //Fügt dem erzeugten p eine Klasse des Bootstrap hinzu, hier padding.
+        ergebniswert.classList.add('p-2');
+        ergebniswert.classList.add('text-decoration-underline');
         let ergebnisbeschreibung = document.createElement("p");
-        ergebniswert.innerHTML = eingabe_parameter[0];
+        //durch das Hinzufügen der Klasse fs-3 wird die Schriftgröße der Beschreibung angepasst
+        ergebnisbeschreibung.classList.add('fs-3');
+        //Runden auf 2 Dezimalstellen, €-Zeichen hinzugefügt
+        ergebniswert.innerHTML = parseFloat(eingabe_parameter[0]).toFixed(2)+"€";
         ergebnisbeschreibung.innerHTML = eingabe_parameter[1];
         box.appendChild(ergebniswert);
         box.appendChild(ergebnisbeschreibung);
     } else {
         fehler_text = document.createElement("p");
+        //Entsprechend eines Fehlers/einer Warnung, wird der Text durch die Klasse text-danger in rot angezeigt
+        fehler_text.classList.add('text-danger');
+        //durch das Hinzufügen der Klasse fs-3 wird die Schriftgröße der Beschreibung angepasst
+        fehler_text.classList.add('fs-3');
         fehler_text.innerHTML = beschreibung;
         box.appendChild(fehler_text);
     }
