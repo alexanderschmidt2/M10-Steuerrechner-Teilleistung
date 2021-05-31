@@ -51,15 +51,15 @@ switch ($_GET["auswahl"]) {
         foreach ($warendaten->produktart as $value) {
             if ($value->name == $_GET["warenwahl"]) {
                 if ($value->einfuhr_verbot[0] == "1") {
-                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . " die Einfuhr dieser Ware ist verboten");
+                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . ". Die Einfuhr von " . $_GET["warenwahl"]. " ist somit verboten.");
                     break;
                 } elseif ($value->einfuhr_verbot[0] == "0") {
-                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . " die Einfuhr dieser Ware ist elaubt");
+                    array_push($response, $value->einfuhr_verbot[0], $value->beschreibung . ". Die Einfuhr dieser Ware ist elaubt.");
                     break;
                 } else {
                     for ($i = 0; $i <= count($value->einfuhr_verbot); $i++) {
                         if ($value->einfuhr_verbot[$i] == $_GET["landwahl"]) {
-                            array_push($response, "1", $value->beschreibung . " die Einfuhr ist somit aus " . $_GET["landwahl"] . " nicht erlaubt");
+                            array_push($response, "1", $value->beschreibung . " Die Einfuhr ist somit aus " . $_GET["landwahl"] . " nicht erlaubt.");
                             break;
                         }
                     }
@@ -75,45 +75,45 @@ switch ($_GET["auswahl"]) {
         $warenwert = floatval($_GET["warenwert"]);
         $beschreibung;
         if ($land->eu_mitgliedschaft == "1") { //Bei EU Mitgliedschaft fällt nur eine eventuelle Verbrauchssteuer an. Handel ansonsten frei.
-            $beschreibung = "Das Land " . $land->name . " ist ein EU Mitgliedstaat, deswegen faellt weder Zoll, noch eine Einfuhrumsatzsteuer an ";
+            $beschreibung = "Das Land " . $land->name . " ist ein EU Mitgliedstaat, deswegen faellt weder Zoll, noch eine Einfuhrumsatzsteuer an. ";
             if ($ware->verbrauchssteuer != 0) {
-                $beschreibung = $beschreibung . " auf diese Ware faellt doch die Verbrauchssteuer an.";
+                $beschreibung = $beschreibung . ". Auf diese Ware faellt jedoch die Verbrauchssteuer an.";
                 $abgaben = $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
             } else {
-                $beschreibung = $beschreibung . " eine Verbrauchssteuer fällt ebenfalls nicht an.";
+                $beschreibung = $beschreibung . ". Eine Verbrauchssteuer fällt ebenfalls nicht an.";
                 array_push($response, "0", $beschreibung);
                 break;
             }
         } else {
             $beschreibung = "Das Land " . $land->name . " ist kein EU Mitgliedstaat, deswegen fallen gegebenenfalls Zoll und die Einfuhrumsatzsteuer an";
             if ($warenwert < 22) {
-                $beschreibung = $beschreibung . " der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an";
+                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an";
                 array_push($response, "0", $beschreibung);
                 break;
             } elseif ($warenwert < 22 && $ware->verbrauchssteuer != 0.0) {
-                $beschreibung = $beschreibung . " der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an. Jedoch ist die Verbrauchssteuer faellig.";
+                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an. Jedoch ist die Verbrauchssteuer faellig.";
                 $abgaben = $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
             } elseif ($warenwert > 22 && $warenwert < 150) {
-                $beschreibung = $beschreibung . " der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
+                $beschreibung = $beschreibung . ". Der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
                 $abgaben = $warenwert * $ware->einfuhrumsatzsteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
             } elseif ($warenwert > 22 && $warenwert < 150 && $ware->verbrauchssteuer != 0) {
-                $beschreibung = $beschreibung . " der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Außerdem ist die Verbrauchssteuer faellig. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
+                $beschreibung = $beschreibung . ". Der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Außerdem ist die Verbrauchssteuer faellig. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
                 $abgaben = $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
             } elseif ($warenwert > 150 && $ware->verbrauchssteuer != 0.0) {
-                $beschreibung = $beschreibung . " es fallen sowohl Einfuhrumsatzsteuer und der Zollsatz an. Da es sich außerdem bei " . $ware->name . " um ein Verbrauchsgut handelt, faellt auch Verbrauchsteuer an"; //TODO: Simon Werte konkartinieren
+                $beschreibung = $beschreibung . ". Es fallen sowohl Einfuhrumsatzsteuer und der Zollsatz an. Da es sich außerdem bei " . $ware->name . " um ein Verbrauchsgut handelt, faellt auch Verbrauchsteuer an"; //TODO: Simon Werte konkartinieren
                 $abgaben = $warenwert * $ware->zollsatz + $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
             } else {
-                $beschreibung = $beschreibung . " es fallen sowohl der Zollsatz, als auch die Einfuhrumsatzsteuer an";
+                $beschreibung = $beschreibung . ". Beim eingegebenen Warenwert fallen sowohl der Zollsatz, als auch die Einfuhrumsatzsteuer an.";
                 $abgaben = $warenwert * $ware->zollsatz + $warenwert * $ware->einfuhrumsatzsteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
