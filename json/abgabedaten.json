@@ -8,7 +8,11 @@
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.035,
-            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
+            "beschreibung": "Alle DVDs mit dem Rating G, PG, PG-13 und R (Rating für Gewalt/Sprache) werden in der Regel zugelassen.
+                            Für DVDs mit den Ratings R (pornografische Inhalte) und NC-17 besteht eine größere Wahrscheinlichkeit der Zurückweisung.
+                            Einige DVDs weisen kein Rating auf, und die Zollbehörden in einigen Ländern können die Einfuhr auf der Basis ihrer Einschätzung der DVD als verboten ablehnen."
+
+            
         },
         {
             "name": "Textilien",
@@ -16,7 +20,9 @@
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
-            "beschreibung": "Keine Pornos oder Nazibildchen einfuehren"
+            "beschreibung": "Die kommerzielle Einfuhr bestimmter Textilien aus einzelnen Nicht-EU-Staaten kann von der Vorlage einer Einfuhrgenehmigung abhängig gemacht werden.
+                            Beschränkungen bestehen derzeit für bestimmte Textilien aus Nordkorea.
+                            Die Einfuhrgenehmigung muss bereits vor der Einfuhr der Textilien von den dafür zuständigen Behörden ausgestellt und zum Zeitpunkt der Einfuhr zusammen mit den Textilien bei der zuständigen Zollstelle vorgelegt werden."
         },
         {
             "name": "Pistolen",
@@ -32,7 +38,7 @@
             "verbrauchssteuer": 0.07,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
-            "beschreibung": "Keine Lactosehaltige Milch einfuehren"
+            "beschreibung": "Reisende aus den USA, Asien und Afrika dürfen weder Wurst noch Käse im Gepäck haben. Diese werden nicht als Reiseproviant gezaehlt."
         },
         {
             "name": "Mobiltelefone",
@@ -40,7 +46,8 @@
             "verbrauchssteuer": 0.0,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
-            "beschreibung": "Handy hehe"
+            "beschreibung": "Mobiltelefone und Smartphones sind nach dem Zoll auch über 150 Euro zollsatzfrei! Ein Tablet-PC ist des Weiteren auch zollsatzfrei. Also muss ich auch hier nur 19% meines Warenwertes zahlen, also die Einfuhrumsatzsteuer."
+            
         }
     ]
 }
