@@ -88,19 +88,19 @@ switch ($_GET["auswahl"]) {
             }
         } else {
             $beschreibung = "Das Land " . $land->name . " ist kein EU Mitgliedstaat, deswegen fallen gegebenenfalls Zoll und die Einfuhrumsatzsteuer an";
-            if ($warenwert < 22) {
-                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an";
-                array_push($response, "0", $beschreibung);
-                break;
-            } 
-            elseif ($warenwert < 22 && $ware->verbrauchssteuer != 0.0) {
-                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an. Jedoch ist die Verbrauchssteuer faellig.";
+            if ($warenwert < 22 && $ware->verbrauchssteuer != 0.0) {
+                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an. Jedoch ist für ". $ware->name . " die Verbrauchssteuer faellig.";
                 $abgaben = $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
+            } 
+            elseif ($warenwert < 22) {
+                $beschreibung = $beschreibung . ". Der Warenwert ist unter 22 Euro. Zoll und die Einfuhrumsatzsteuer fallen dementsprechend nicht an";
+                array_push($response, "0", $beschreibung);
+                break;
             }
             elseif ($warenwert > 22 && $warenwert <= 150 && $ware->verbrauchssteuer != 0.0) {
-                $beschreibung = $beschreibung . ". Der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Außerdem ist die Verbrauchssteuer faellig. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
+                $beschreibung = $beschreibung . ". Der Warenwert ist größer als 22 Euro, daher fällt also die Einfuhrumsatzsteuer an. Außerdem ist für " . $ware->name . " die Verbrauchssteuer faellig. Der Zollfreibetrag wurde jedoch nicht überschritten. ";
                 $abgaben = $warenwert * $ware->einfuhrumsatzsteuer + $warenwert * $ware->verbrauchssteuer;
                 array_push($response, $abgaben, $beschreibung);
                 break;
