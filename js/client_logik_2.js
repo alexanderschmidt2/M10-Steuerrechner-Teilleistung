@@ -1,10 +1,10 @@
 window.addEventListener("load", init);
 
-var dom_inhalt = [];
+var dom_inhalt = new Map();
 var daten_cache;
-//var url_server = "http://localhost:3000/php/server_logik.php";
+var url_server = "http://localhost:3000/php/server_logik.php";
 //var url_server = "http://localhost/php/server_logik.php";
-var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
+//var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
 
 //funktion: nomen_verb
 // wir laden uns eine Konfiguration 
@@ -20,8 +20,7 @@ function laender_hinzufuegen() {
     xhr.send();
     xhr.addEventListener("load", function() { //Definitv ein paar Hilfeboxen überlegen
         if (xhr.status != 200) {
-            box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten")
-
+            box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten");
         } else {
             box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land"); //Muellsammler Rework, muss besser klappen,
             waren_hinzufuegen();
@@ -117,7 +116,6 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
                 console.log("hier");
                 box_machen("fehler", "5", null, null, "Es ist ein Fehler aufgetreten");
             } else {
-                console.log(xhr.responseText);
                 let ergebnis = JSON.parse(xhr.responseText);
                 box_machen("ergebnis", "5", "ergebnis", ergebnis, null);
 
@@ -134,17 +132,16 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
     box.id = box_id;
     //Fügt dem erzeugten div eine Klasse des Bootstrap hinzu, hier padding.
     box.classList.add('p-2');
-    dom_inhalt.push(box_id);
     if (eingabe_art != "fehler" && eingabe_art != "ergebnis") {
         let eingabe = document.createElement(eingabe_art);
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
         eingabe.classList.add('fs-4');
         //durch das Hinzufügen der Klasse p-1 wird ein padding hinzugefügt und somit der Abstand von dem Text in der Auswahlbox und Auswahlbox erhöht.
-        eingabe.classList.add('p-1') ;
+        eingabe.classList.add('p-1');
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
         //durch das Hinzufügen der Klasse me-3 wird ein margin rechts hinzugefügt und somit der Abstand zwischen Label und Auswahlbox erhöht.
-        eingabe_label.classList.add('me-3') ;
+        eingabe_label.classList.add('me-3');
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
         eingabe_label.classList.add('fs-4');
         eingabe_label.innerHTML = beschreibung;
@@ -178,7 +175,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         //durch das Hinzufügen der Klasse fs-3 wird die Schriftgröße der Beschreibung angepasst
         ergebnisbeschreibung.classList.add('fs-3');
         //Runden auf 2 Dezimalstellen, €-Zeichen hinzugefügt
-        ergebniswert.innerHTML = parseFloat(eingabe_parameter[0]).toFixed(2)+"€";
+        ergebniswert.innerHTML = parseFloat(eingabe_parameter[0]).toFixed(2) + "€";
         ergebnisbeschreibung.innerHTML = eingabe_parameter[1];
         box.appendChild(ergebniswert);
         box.appendChild(ergebnisbeschreibung);
@@ -191,47 +188,47 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         fehler_text.innerHTML = beschreibung;
         box.appendChild(fehler_text);
     }
+    map_manager(box_id, box); //Wenn eine Box in der Map existiert, existiert diese auch im DOM
     document.getElementById("abgabenrechner").appendChild(box);
 
 };
 
-function muellsammler(id) { //WORKAROUND, bis ich mich mit SW beraten habe
-    switch (id) {
-        case "2":
-            if (document.getElementById("2") != null) {
-                document.getElementById("2").remove();
-            }
-            if (document.getElementById("3") != null) {
-                document.getElementById("3").remove();
-            }
-            if (document.getElementById("4") != null) {
-                document.getElementById("4").remove();
-            }
-            if (document.getElementById("4") != null) {
-                document.getElementById("4").remove();
-            }
-        case "3":
-            if (document.getElementById("3") != null) {
-                document.getElementById("3").remove();
-            }
-            if (document.getElementById("4") != null) {
-                document.getElementById("4").remove();
-            }
-            if (document.getElementById("5") != null) {
-                document.getElementById("5").remove();
-            }
-        case "4":
-            if (document.getElementById("4") != null) {
-                document.getElementById("4").remove();
-            }
-            if (document.getElementById("5") != null) {
-                document.getElementById("5").remove();
-            }
 
+
+function muellsammler(box_id) { //ab einschl. dieser Box ID soll alles entfernt werden, wenn es in der Map existiert, existiert es auch im DOM
+    box_id = parseInt(box_id);
+    while (box_id <= dom_inhalt.size) {
+        if (dom_inhalt.get(box_id) != undefined) {
+            document.getElementById("abgabenrechner").removeChild(dom_inhalt.get(box_id));
+            dom_inhalt.delete(box_id);
+            dom_inhalt.set(box_id, undefined);
+        }
+        box_id++;
     }
+};
+
+
+function isEmpty(obj) {
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
+function map_manager(box_id, box) {
+    box_id = parseInt(box_id);
+    if (dom_inhalt.size == 0) { //generiere Map mit der benötigten Anzahl von Ebenen, wenn die map leer ist
+        for (let i = 1; i <= 5; i++)
+            dom_inhalt.set(i, undefined);
+    };
+    dom_inhalt = dom_inhalt.set(box_id, box); //setze an der Stelle box_id die Box
+
+
+
+
 
 
 };
-
 
 function cache_laden() {};
