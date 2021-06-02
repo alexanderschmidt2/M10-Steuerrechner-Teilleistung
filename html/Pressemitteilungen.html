@@ -26,7 +26,7 @@
 </head>
 
     <body class="body">
-        <nav class="navbar navbar-expand-md navbar-light shadow" style="padding-top:3%">
+        <nav class="navbar navbar-expand-md navbar-light shadow d-print-none" style="padding-top:3%">
             <div class="container">
                 <a href="#" class="navbar-brand"><img src="../bilder/bild_zoll_gross.svg" alt="Zoll Logo" class="d-inline-block align-top" /><span class="hidden">Zoll</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="togglenavigation">
@@ -42,6 +42,10 @@
                 </div>
             </div>
         </nav>
+
+        <div class="container pt-5 d-none d-print-block">
+            <a href="#"><img src="../bilder/bild_zoll_gross.svg" alt="Zoll Logo" class="d-inline-block align-top" /><span class="hidden">Zoll</span></a>
+        </div>
 
         <div class="container pt-4 shadow">
             
@@ -131,7 +135,7 @@
     <footer class="fuss" style="height:10em">
         <div class="container" id="fusszeile">
             <img class="pt-0" id="logo2" src="../bilder/GZD_Logo.svg" alt="GZD Logo" style="width:auto;height:auto;" />
-            <div class="row text-start text-md-left pt-3">
+            <div class="row text-start text-md-left pt-3 d-print-none">
                 <div class="col-md-2 text-start text-md-left">
                     <a style="text-decoration:none;" href="index.html">Impressum</a>
                 </div>
