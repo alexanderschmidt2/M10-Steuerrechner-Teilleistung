@@ -33,10 +33,17 @@
     font-weight: 500;
 }
 
+p:hover{
+    color:#1f3347;
+}
+li:hover{
+    border-bottom:3px solid ;
+    border-bottom-color:#1f3347;
+}
+
 [class*="fuss"] {
     position: sticky;
     top: 100%;
-
     color: #2d6f9e;
 }
 
