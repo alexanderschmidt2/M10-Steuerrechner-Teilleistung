@@ -33,10 +33,10 @@
     font-weight: 500;
 }
 
-p:hover{
+.navigationObj:hover{
     color:#1f3347;
 }
-li:hover{
+.nav-item:hover{
     border-bottom:3px solid ;
     border-bottom-color:#1f3347;
 }
@@ -47,9 +47,6 @@ li:hover{
     color: #2d6f9e;
 }
 
-[class*="pressemitteilungTitel"] {
-
-}
 
 [class*="pressemitteilungText"] {
     color: black;
@@ -77,6 +74,17 @@ li:hover{
 [class*="carousel-control-next"] {
     color: red;
 }
+
+[class*='buttonBerechnenCss']{
+    background-color: white;
+    border-color: #2D6F9E;
+}
+.buttonBerechnenCss:hover{
+    background-color: #1f3347;
+    border-color: #1f3347;
+    color:white;
+}
+
 /*
 [id*="vorheriges"] {
     content: '>';
