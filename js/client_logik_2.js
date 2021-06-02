@@ -87,6 +87,7 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
                         if (eingabe_antwort[0] == "0") {
                             box_machen("input", "3", "warenwert", null, "Warenwert in €");
                             warenwert_auswahl = document.getElementById("warenwert");
+                            warenwert_auswahl.classList.add('p-0');
                             warenwert_auswahl.addEventListener("change", function() {
                                 muellsammler("4");
                                 rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt)
@@ -141,6 +142,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         //durch das Hinzufügen der Klasse p-1 wird ein padding hinzugefügt und somit der Abstand von dem Text in der Auswahlbox und Auswahlbox erhöht.
         eingabe.classList.add('p-1');
         eingabe.classList.add('col');
+        eingabe.classList.add('rounded');
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
         //durch das Hinzufügen der Klasse me-3 wird ein margin rechts hinzugefügt und somit der Abstand zwischen Label und Auswahlbox erhöht.
@@ -148,6 +150,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
         eingabe_label.classList.add('fs-4');
         eingabe_label.classList.add('col');
+        eingabe_label.classList.add('rounded');
         eingabe_label.innerHTML = beschreibung;
         eingabe_label.htmlFor = eingabe_id;
         if (eingabe.tagName == "SELECT") {
@@ -159,7 +162,6 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 option = document.createElement("option");
                 option.innerHTML = eingabe_parameter[i];
                 option.value = eingabe_parameter[i];
-
                 eingabe.appendChild(option);
             }
         } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
@@ -181,7 +183,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
         ergebniswert.classList.add('p-3');
         ergebniswert.classList.add('text-decoration-underline');
         ergebniswert.classList.add('fs-3');
-        ergebniswert.classList.add('col')
+        ergebniswert.classList.add('col');
         let ergebnisbeschreibung = document.createElement("p");
         //durch das Hinzufügen der Klasse fs-3 wird die Schriftgröße der Beschreibung angepasst
         ergebnisbeschreibung.classList.add('fs-3');

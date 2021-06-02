@@ -79,10 +79,19 @@
     background-color: white;
     border-color: #2D6F9E;
 }
+
+[class*='inputZahl']{
+    border:1px solid;
+}
+
 .buttonBerechnenCss:hover{
     background-color: #1f3347;
     border-color: #1f3347;
     color:white;
+}
+
+[class*='shadow']{
+    display: block;
 }
 
 /*
