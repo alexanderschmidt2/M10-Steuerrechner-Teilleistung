@@ -133,21 +133,21 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
     box.id = box_id;
     //Fügt dem erzeugten div eine Klasse des Bootstrap hinzu, hier padding.
     box.classList.add('p-2');
-    box.classList.add('row')
+    box.classList.add('row');
     if (eingabe_art != "fehler" && eingabe_art != "ergebnis") {
         let eingabe = document.createElement(eingabe_art);
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
         eingabe.classList.add('fs-4');
         //durch das Hinzufügen der Klasse p-1 wird ein padding hinzugefügt und somit der Abstand von dem Text in der Auswahlbox und Auswahlbox erhöht.
         eingabe.classList.add('p-1');
-        eingabe.classList.add('col')
+        eingabe.classList.add('col');
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
         //durch das Hinzufügen der Klasse me-3 wird ein margin rechts hinzugefügt und somit der Abstand zwischen Label und Auswahlbox erhöht.
         eingabe_label.classList.add('me-3');
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
         eingabe_label.classList.add('fs-4');
-        eingabe_label.classList.add('col')
+        eingabe_label.classList.add('col');
         eingabe_label.innerHTML = beschreibung;
         eingabe_label.htmlFor = eingabe_id;
         if (eingabe.tagName == "SELECT") {
@@ -159,6 +159,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 option = document.createElement("option");
                 option.innerHTML = eingabe_parameter[i];
                 option.value = eingabe_parameter[i];
+
                 eingabe.appendChild(option);
             }
         } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
