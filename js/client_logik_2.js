@@ -133,21 +133,26 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
     let box = document.createElement("div");
     box.id = box_id;
     //Fügt dem erzeugten div eine Klasse des Bootstrap hinzu, hier padding.
+    //row gibt an, dass jede box eine Reihe hat. Wichtig für die Columns von eingabe und eingabe_label
     box.classList.add('p-2');
     box.classList.add('row');
     if (eingabe_art != "fehler" && eingabe_art != "ergebnis") {
         let eingabe = document.createElement(eingabe_art);
-        //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
-        eingabe.classList.add('fs-4');
+        //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst     
         //durch das Hinzufügen der Klasse p-1 wird ein padding hinzugefügt und somit der Abstand von dem Text in der Auswahlbox und Auswahlbox erhöht.
+        //col erzeugt eine neue Spalte in der Reihe     
+        //rounded rundet die Ecken ab 
+        eingabe.classList.add('fs-4');
         eingabe.classList.add('p-1');
         eingabe.classList.add('col');
         eingabe.classList.add('rounded');
         eingabe.id = eingabe_id;
         let eingabe_label = document.createElement("label");
         //durch das Hinzufügen der Klasse me-3 wird ein margin rechts hinzugefügt und somit der Abstand zwischen Label und Auswahlbox erhöht.
-        eingabe_label.classList.add('me-3');
         //durch das Hinzufügen der Klasse fs-4 wird die Schriftgröße der Beschreibung angepasst
+        //col erzeugt eine neue Spalte in der Reihe        
+        //rounded rundet die Ecken ab
+        eingabe_label.classList.add('me-3');
         eingabe_label.classList.add('fs-4');
         eingabe_label.classList.add('col');
         eingabe_label.classList.add('rounded');
@@ -164,22 +169,45 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 option.value = eingabe_parameter[i];
                 eingabe.appendChild(option);
             }
+            //Tooltip Implementierung
+            if(eingabe_id=='land'){
+                eingabe.setAttribute('data-bs-toggle','tooltip');
+                eingabe.setAttribute('data-bs-placement','top');
+                eingabe.setAttribute('title','Wählen Sie hier bitte das Land aus, von welchem Sie einreisen.');
+            }
+            else{
+                eingabe.setAttribute('data-bs-toggle','tooltip');
+                eingabe.setAttribute('data-bs-placement','top');
+                eingabe.setAttribute('title','Wählen Sie hier bitte die Warenart aus, welche Sie einführen möchten.');
+            }
+
         } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
             eingabe.setAttribute("type", "number");
             eingabe.setAttribute("min", 1);
             eingabe.setAttribute("max", 100000);
+            //Tooltip Implementierung
+            eingabe.setAttribute('data-bs-toggle','tooltip');
+            eingabe.setAttribute('data-bs-placement','top');
+            eingabe.setAttribute('title','Geben Sie hier bitte den Warenwert Ihrer einzuführenden Waren an. Sollten Sie sich unsicher sien, werden Ihnen unsere Beamten bei der Wiedereinraise behilflich sein.');
         } else if (eingabe.tagName == "BUTTON") {
             eingabe.innerHTML = eingabe_parameter;
+            //text-#2D6F9E verändert die Farbe
+            //buttonBerechnenCss wird für den hover Effekt in CSS benötigt
+            //rounded rundet die Ecken ab
+            //shadow fügt einen Schatten hinzu, der Tiefe simuliert
             eingabe.classList.add('text-#2D6F9E');
             eingabe.classList.add('buttonBerechnenCss');
             eingabe.classList.add('rounded');
             eingabe.classList.add('shadow');
-        }
+        }  
         box.appendChild(eingabe_label);
         box.appendChild(eingabe);
     } else if (eingabe_art == "ergebnis") {
         let ergebniswert = document.createElement("p");
         //Fügt dem erzeugten p eine Klasse des Bootstrap hinzu, hier padding.
+        //text-decoration-underline Ergebniswert wird unterstrichen
+        //fs-3 gibt die Schriftgröße vor
+        //col erzeugt eine neue Spalte in der Reihe   
         ergebniswert.classList.add('p-3');
         ergebniswert.classList.add('text-decoration-underline');
         ergebniswert.classList.add('fs-3');
