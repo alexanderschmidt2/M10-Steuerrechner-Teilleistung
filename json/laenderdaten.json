@@ -38,6 +38,20 @@
             "einfuhr": "1",
             "eu_mitgliedschaft": "0",
             "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
+        },
+
+        {
+            "name": "Japan",
+            "einfuhr": "1",
+            "eu_mitgliedschaft": "0",
+            "beschreibung": "Kein EU Mitglied. Einfuhr erlaubt. Es ist mit extra Kosten zu rechnen."
+        },
+
+        {
+            "name": "China",
+            "einfuhr": "0",
+            "eu_mitgliedschaft": "0",
+            "beschreibung": "Aufgrund aktueller Sanktionen ist keine Einfuhr aus China erlaubt. "
         }
 
     ]
