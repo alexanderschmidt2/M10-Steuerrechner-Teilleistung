@@ -47,6 +47,10 @@
     color: #2d6f9e;
 }
 
+.fussHover:hover{
+    border-bottom:3px solid ;
+    border-bottom-color:#1f3347;
+}
 
 [class*="pressemitteilungText"] {
     color: black;
