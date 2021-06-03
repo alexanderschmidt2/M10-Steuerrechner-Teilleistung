@@ -187,7 +187,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
             //Tooltip Implementierung
             eingabe.setAttribute('data-bs-toggle', 'tooltip');
             eingabe.setAttribute('data-bs-placement', 'top');
-            eingabe.setAttribute('title', 'Geben Sie hier bitte den Warenwert Ihrer einzuführenden Waren an. Sollten Sie sich unsicher sien, werden Ihnen unsere Beamten bei der Wiedereinraise behilflich sein.');
+            eingabe.setAttribute('title', 'Geben Sie hier bitte den Warenwert Ihrer einzuführenden Waren an. Sollten Sie sich unsicher sein, werden Ihnen unsere Beamten bei der Wiedereinreise behilflich sein.');
         } else if (eingabe.tagName == "BUTTON") {
             eingabe.innerHTML = eingabe_parameter;
             //text-#2D6F9E verändert die Farbe
