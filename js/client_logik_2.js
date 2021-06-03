@@ -2,9 +2,9 @@ window.addEventListener("load", init);
 
 var dom_inhalt = new Map();
 var daten_cache;
-//var url_server = "http://localhost:3000/php/server_logik.php";
+var url_server = "http://localhost:3000/php/server_logik.php";
 //var url_server = "http://localhost/php/server_logik.php";
-var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
+//var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
 
 
 //funktion: nomen_verb
@@ -108,7 +108,7 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
     warenwert_ausgewaehlt = warenwert_auswahl.value;
     warenwert_ausgewahlt = toString(warenwert_ausgewaehlt);
     document.getElementById("knopf_berechnen").addEventListener("click", function() {
-        muellsammler("4");
+        muellsammler("5");
         let xhr = new XMLHttpRequest(); //SEHR unschön, eine Information, die der Server schon hat, muss nachgeschickt werden
         xhr.open("GET", url_server + "?auswahl=rechner&warenwert=" + warenwert_ausgewaehlt +
             "&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
@@ -170,15 +170,14 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 eingabe.appendChild(option);
             }
             //Tooltip Implementierung
-            if(eingabe_id=='land'){
-                eingabe.setAttribute('data-bs-toggle','tooltip');
-                eingabe.setAttribute('data-bs-placement','top');
-                eingabe.setAttribute('title','Wählen Sie hier bitte das Land aus, von welchem Sie einreisen.');
-            }
-            else{
-                eingabe.setAttribute('data-bs-toggle','tooltip');
-                eingabe.setAttribute('data-bs-placement','top');
-                eingabe.setAttribute('title','Wählen Sie hier bitte die Warenart aus, welche Sie einführen möchten.');
+            if (eingabe_id == 'land') {
+                eingabe.setAttribute('data-bs-toggle', 'tooltip');
+                eingabe.setAttribute('data-bs-placement', 'top');
+                eingabe.setAttribute('title', 'Wählen Sie hier bitte das Land aus, von welchem Sie einreisen.');
+            } else {
+                eingabe.setAttribute('data-bs-toggle', 'tooltip');
+                eingabe.setAttribute('data-bs-placement', 'top');
+                eingabe.setAttribute('title', 'Wählen Sie hier bitte die Warenart aus, welche Sie einführen möchten.');
             }
 
         } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
@@ -186,9 +185,9 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
             eingabe.setAttribute("min", 1);
             eingabe.setAttribute("max", 100000);
             //Tooltip Implementierung
-            eingabe.setAttribute('data-bs-toggle','tooltip');
-            eingabe.setAttribute('data-bs-placement','top');
-            eingabe.setAttribute('title','Geben Sie hier bitte den Warenwert Ihrer einzuführenden Waren an. Sollten Sie sich unsicher sien, werden Ihnen unsere Beamten bei der Wiedereinraise behilflich sein.');
+            eingabe.setAttribute('data-bs-toggle', 'tooltip');
+            eingabe.setAttribute('data-bs-placement', 'top');
+            eingabe.setAttribute('title', 'Geben Sie hier bitte den Warenwert Ihrer einzuführenden Waren an. Sollten Sie sich unsicher sien, werden Ihnen unsere Beamten bei der Wiedereinraise behilflich sein.');
         } else if (eingabe.tagName == "BUTTON") {
             eingabe.innerHTML = eingabe_parameter;
             //text-#2D6F9E verändert die Farbe
@@ -199,7 +198,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
             eingabe.classList.add('buttonBerechnenCss');
             eingabe.classList.add('rounded');
             eingabe.classList.add('shadow');
-        }  
+        }
         box.appendChild(eingabe_label);
         box.appendChild(eingabe);
     } else if (eingabe_art == "ergebnis") {
@@ -248,14 +247,6 @@ function muellsammler(box_id) { //ab einschl. dieser Box ID soll alles entfernt 
     }
 };
 
-
-function isEmpty(obj) {
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
 
 function map_manager(box_id, box) {
     box_id = parseInt(box_id);
