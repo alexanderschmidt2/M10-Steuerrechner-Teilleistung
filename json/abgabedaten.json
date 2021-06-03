@@ -30,7 +30,7 @@
         },
         {
             "name": "Kaese",
-            "einfuhr_verbot": ["Frankreich", "Tuerkei"],
+            "einfuhr_verbot": ["USA", "Japan"],
             "verbrauchssteuer": 0.07,
             "einfuhrumsatzsteuer": 0.19,
             "zollsatz": 0.12,
