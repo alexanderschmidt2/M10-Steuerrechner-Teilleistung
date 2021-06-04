@@ -2,9 +2,12 @@
 ob_clean();
 header_remove();
 header('Content-Type: application/json charset=utf-8');
-header('Access-Control-Allow-Origin: *'); //anpassen unsere Seite
+header('Access-Control-Allow-Origin: *'); 
 
-$url_laenderdaten = '../json/laenderdaten.json';
+//Die JSON "Datenbanken" werdenn inital in eine PHP Variable geladen. Die Daten müssten in einem "cache" Zwischengespeichert werden, Clientunabhängig. Leider gibt uns die Serverinstallation das nicht her, 
+//deswegen gibt es eine Alternative Lösung. 
+
+$url_laenderdaten = '../json/laenderdaten.json'; 
 $data_laender = file_get_contents($url_laenderdaten);
 $laenderdaten = json_decode($data_laender);
 
@@ -12,7 +15,7 @@ $url_warendaten = '../json/abgabedaten.json';
 $data_waren = file_get_contents($url_warendaten);
 $warendaten = json_decode($data_waren);
 
-$response = array();
+$response = array(); //hier wird der Response Array inittiert
 
 
 function getLand($name, $laenderdaten)
@@ -31,7 +34,9 @@ function getWare($name, $warendaten)
         }
     }
 };
-
+//Je nach GET Parameter wird eine Reihe von Anweisungen ausgeführt.
+//Daten werden Clientseitig ggf. in beliebiger Reihenfolge gesendet, da sich der User z.B. beim Land nicht entscheiden kann. Ein Zwischenspeichern in der Session Variable und dei Überprüfung, ob sich 
+//etwas verändert hat wäre somit verschwendeter Code. Der PHP Code muss immer die Aktualität und Dynamik des Clients beibehalten. Eine Abfrage nach Aktualität der Informationen ist nicht Zielführend   
 switch ($_GET["auswahl"]) {
     case "land":
         foreach ($laenderdaten->laender as $value) {
@@ -128,5 +133,5 @@ switch ($_GET["auswahl"]) {
         break;
 }
 
-http_response_code(200);
+http_response_code(200); //Wenn alles in Ordnung war wird dieser Response Code hingeschickt. Sollte es probleme gegeben haben wird automatisch ein anderer Response code wie "500" zurückgeschickt
 echo json_encode($response);

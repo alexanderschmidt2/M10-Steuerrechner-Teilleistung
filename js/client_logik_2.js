@@ -1,49 +1,45 @@
-window.addEventListener("load", init);
+window.addEventListener("load", laender_hinzufuegen);
 
 var dom_inhalt = new Map();
-var daten_cache;
 //var url_server = "http://localhost:3000/php/server_logik.php";
 //var url_server = "http://localhost/php/server_logik.php";
 var url_server = "http://localhost/M10-Steuerrechner-Teilleistung/php/server_logik.php";
 
 
-//funktion: nomen_verb
-// wir laden uns eine Konfiguration 
-
-
-function init() {
-    laender_hinzufuegen();
-};
-
+/*
+Erster Schritt, hier werden die Länder dynamisch generiert, je nach Serverantwort und "DB" Einträgen
+*/
 function laender_hinzufuegen() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url_server + "?auswahl=land");
     xhr.send();
-    xhr.addEventListener("load", function() { //Definitv ein paar Hilfeboxen überlegen
+    xhr.addEventListener("load", function() {
         if (xhr.status != 200) {
             box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten");
         } else {
-            box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land"); //Muellsammler Rework, muss besser klappen,
+            box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land");
             waren_hinzufuegen();
         }
     })
 };
 
+/*
+Zweiter Schritt, diese Funktion fragt dynamisch die Waren ab und generiert diese entsprechend nach Handelserlaubnis
+*/
 
-
-function waren_hinzufuegen() { //TODO: FIX mit Default Option
+function waren_hinzufuegen() {
     let land_auswahl = document.getElementById("land");
     if (land_auswahl != null) {
-        land_auswahl.addEventListener("change", function() { //AN DEN LÄNDERN ÄNDERT SICH WAS
+        land_auswahl.addEventListener("change", function() { //AN DEN LÄNDERN ÄNDERT SICH WAS, Kerngedanke, hier gibt es ein Event, was kaskadierend auch alle anderen Funktionsaufrufe beeinflusst
             muellsammler("2");
             land_ausgewaehlt = land_auswahl.value
             if (land_ausgewaehlt != "default") {
                 let xhr = new XMLHttpRequest(); //konsolidieren mit der Länderwahl? 
-                xhr.open("GET", url_server + "?auswahl=einfuhr&landwahl=" + land_ausgewaehlt); //ZU VIEL? SW FRAGEN
+                xhr.open("GET", url_server + "?auswahl=einfuhr&landwahl=" + land_ausgewaehlt);
                 xhr.send();
                 xhr.addEventListener("load", function() {
                     if (xhr.status != 200) {
-                        box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten") //TODO: AUF DIE FEHLERART ANPASSEN
+                        box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten")
                     } else {
                         let laender_einfuhr = JSON.parse(xhr.responseText);
                         if (laender_einfuhr[0] == 1) {
@@ -68,7 +64,9 @@ function waren_hinzufuegen() { //TODO: FIX mit Default Option
         })
     }
 };
-
+/*
+Prüft die entsprechende Input Logik und fügt das Input Feld hinzu 
+*/
 function eingabe_hinzufeugen(land_ausgewaehlt) {
     let waren_auswahl = document.getElementById("ware");
     if (waren_auswahl != null) {
@@ -102,14 +100,16 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
         })
     }
 };
-
+/*
+Letzter Schritt, hier wird die Berechnung initiiert, die Berechnung findet im Server statt 
+*/
 function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
     box_machen("button", "4", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen");
     warenwert_ausgewaehlt = warenwert_auswahl.value;
     warenwert_ausgewahlt = toString(warenwert_ausgewaehlt);
     document.getElementById("knopf_berechnen").addEventListener("click", function() {
         muellsammler("5");
-        let xhr = new XMLHttpRequest(); //SEHR unschön, eine Information, die der Server schon hat, muss nachgeschickt werden
+        let xhr = new XMLHttpRequest();
         xhr.open("GET", url_server + "?auswahl=rechner&warenwert=" + warenwert_ausgewaehlt +
             "&landwahl=" + land_ausgewaehlt + "&warenwahl=" + ware_ausgewaehlt);
         xhr.send();
@@ -127,8 +127,9 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
     });
 
 };
-
-
+/*
+Die gesamte Boxgenerierung, die durch die dynamsichen Steuerfunktionen stattfindet wird für bessere Wartbarkeit und zusammenarbeit mit dem CSS Team in einer Funktion gebündelt, welche nach den jeweiligen Parametern die benötogte Box generiert 
+*/
 function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschreibung) { //Wenn es diese Box bereits gibt muss die Box entfernt werden und durch eine neue Box mit entsprechendem Level ersetzt werden!
     let box = document.createElement("div");
     box.id = box_id;
@@ -180,7 +181,7 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
                 eingabe.setAttribute('title', 'Wählen Sie hier bitte die Warenart aus, welche Sie einführen möchten.');
             }
 
-        } else if (eingabe.tagName == "INPUT") { //TODO: Default Input ergänzen, constraints ergänzen
+        } else if (eingabe.tagName == "INPUT") {
             eingabe.setAttribute("type", "number");
             eingabe.setAttribute("min", 1);
             eingabe.setAttribute("max", 100000);
@@ -233,9 +234,11 @@ function box_machen(eingabe_art, box_id, eingabe_id, eingabe_parameter, beschrei
 
 };
 
+/*
+Ab einschl. dieser Box ID soll alles entfernt werden. Wenn es in der Map existiert, existiert es auch im DOM, Diese Funktion arbeitet mit der Map Datenstruktur, um das DOM zu verwalten 
+*/
 
-
-function muellsammler(box_id) { //ab einschl. dieser Box ID soll alles entfernt werden, wenn es in der Map existiert, existiert es auch im DOM
+function muellsammler(box_id) {
     box_id = parseInt(box_id);
     while (box_id <= dom_inhalt.size) {
         if (dom_inhalt.get(box_id) != undefined) {
@@ -247,14 +250,16 @@ function muellsammler(box_id) { //ab einschl. dieser Box ID soll alles entfernt 
     }
 };
 
-
+/*
+Fügt eine Box mit entsprechender ID der Map hinzu
+*/
 function map_manager(box_id, box) {
     box_id = parseInt(box_id);
     if (dom_inhalt.size == 0) { //generiere Map mit der benötigten Anzahl von Ebenen, wenn die map leer ist
         for (let i = 1; i <= 5; i++)
             dom_inhalt.set(i, undefined);
     };
-    dom_inhalt = dom_inhalt.set(box_id, box); //setze an der Stelle box_id die Box
+    dom_inhalt = dom_inhalt.set(box_id, box); //setze an der Stelle box_id die Box in die Map 
 
 
 
@@ -262,5 +267,3 @@ function map_manager(box_id, box) {
 
 
 };
-
-function cache_laden() {};
