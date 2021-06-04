@@ -52,7 +52,7 @@ switch ($_GET["auswahl"]) {
             array_push($response, $value->name);
         }
         break;
-    case "einfuhr_verbot";
+    case "einfuhr_verbot"; //Prüfen ob eine Einfuhr aus dem gewählten Land erlaubt ist
         foreach ($warendaten->produktart as $value) {
             if ($value->name == $_GET["warenwahl"]) {
                 if ($value->einfuhr_verbot[0] == "1") {
