@@ -74,12 +74,15 @@ switch ($_GET["auswahl"]) {
             }
         }
         break;
+
+//Berechnung der anfallenden Steuern. 
+//Abfrage 1: Handelt es sich um ein EU Land? Falls ja, fällt gegebenenfalls nur die Verbrauchssteuer an. Der Handel in der EU ist für den Privatgebrauch sonst frei.
     case "rechner";
         $land = getLand($_GET["landwahl"], $laenderdaten);
         $ware = getWare($_GET["warenwahl"], $warendaten);
         $warenwert = floatval($_GET["warenwert"]);
         $beschreibung;
-        if ($land->eu_mitgliedschaft == "1") { //Bei EU Mitgliedschaft fällt nur eine eventuelle Verbrauchssteuer an. Handel ansonsten frei.
+        if ($land->eu_mitgliedschaft == "1") { 
             $beschreibung = "Das Land " . $land->name . " ist ein EU Mitgliedstaat, deswegen faellt weder Zoll, noch eine Einfuhrumsatzsteuer an. ";
             if ($ware->verbrauchssteuer != 0) {
                 $beschreibung = $beschreibung . "Auf diese Ware faellt jedoch die Verbrauchssteuer an.";
@@ -91,6 +94,12 @@ switch ($_GET["auswahl"]) {
                 array_push($response, "0", $beschreibung);
                 break;
             }
+//Anschließende Berechnungen für die Einfuhr aus nicht EU Ländern.
+//Erste Prüfung ob der Warenwert unter 22 Euro ist und ob eine Verbrauchssteuer anfällt.
+//Anschließende Prüfung ob die Einfuhrumsatzsteuer/Verbrauchssteuer anfällt. Dies ist bei einem Warenwert zwischen 22 und 150 der Fall.
+//Sofern der Warenwert 150 Euro überschreitet, wird der Zoll, die Einfuhrumsatzsteuer und ggfs. die Verbrauchssteuer fällig.
+//Prüfung ob die Verbrauchssteuer !=0 muss zuerst geprüft werden, damit dies auf jeden Fall immer geprüft wird.
+
         } else {
             $beschreibung = "Das Land " . $land->name . " ist kein EU Mitgliedstaat, deswegen fallen gegebenenfalls Zoll und die Einfuhrumsatzsteuer an. ";
             if ($warenwert < 22 && $ware->verbrauchssteuer != 0.0) {
