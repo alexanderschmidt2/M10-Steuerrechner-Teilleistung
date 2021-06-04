@@ -7,12 +7,14 @@
     <!--
         <base href="http://127.0.0.1:5500/index.html" target="_self">
     -->
-    <base href="http://localhost:5500/index.html" target="_self">
+    <!--
+        <base href="http://localhost:5500/index.html" target="_self">
+    --> 
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="css/desktop.css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/desktop.css" />
     <!-- CSS f�r den Computermonitor-->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
     <title>Steuerplattform Zoll</title>
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/x-icon" href="../bilder/icon_zoll.ico">
@@ -24,15 +26,15 @@
     <!-- Barrierearm f�r Screenreader-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Skalierung f�r Mobile Ger�te-->
-    <link rel="stylesheet" href="css/drucker_version.css" type="text/css" media="print">
+    <link rel="stylesheet" href="../css/drucker_version.css" type="text/css" media="print">
     <!-- CSS f�r den Drucker-->
-    <script src="js/client_logik.js"></script>
+    <script src="../js/client_logik.js"></script>
 
 </head>
 
 <body class="body">
 
-    <nav class="navbar navbar-expand-md navbar-light shadow d-print-none" style="padding-top: 3%">
+    <nav id="kopfcontainer" class="navbar navbar-expand-md navbar-light shadow d-print-none" style="padding-top: 3%">
         <div class="container">
             <a href="#" class="navbar-brand"><img src="../bilder/bild_zoll_gross.svg" alt="Zoll Logo" class="d-inline-block align-top" /><span class="hidden">Zoll</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="togglenavigation">
@@ -40,10 +42,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav text-end me-auto mb-2 mb-lg-0 pt-5 naviBartem">
-                    <li class="nav-item"><a class="nav-link" href="html/Einfuhrbestimmungen.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Einfuhrbestimmungen</p></a></li>
-                    <li class="nav-item"><a class="nav-link" href="html/Abgabenrechner.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Abgabenrechner</p></a></li>
-                    <li class="nav-item"><a class="nav-link" href="html/Pressemitteilungen.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Pressemitteilungen</p></a></li>
-                    <li class="nav-item"><a class="nav-link" href="html/#"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Impressum</p></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../html/Einfuhrbestimmungen.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Einfuhrbestimmungen</p></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../html/Abgabenrechner.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Abgabenrechner</p></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../html/Pressemitteilungen.html"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Pressemitteilungen</p></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../html/#"><p class="navigationObj me-auto mb-2 mb-lg-0 pt-0 fw-bold">Impressum</p></a></li>
                 </ul>
             </div>
 
@@ -71,15 +73,17 @@
 
 <footer class="fuss" style="height:10em">
     <div class="container" id="fusszeile">
-        <img class="pt-0" id="logo2" src="../bilder/GZD_Logo.svg" alt="GZD Logo" style="width:auto;height:auto;" />
+       <a href="https://www.zoll.de" target="_blank" rel="noopener noreferrer">
+           <img class="pt-0" id="logo2" src="../bilder/GZD_Logo.svg" alt="GZD Logo" style="width:auto;height:auto;" />
+       </a>       
         <div class="row text-start text-md-left pt-3 d-print-none">
-            <div class="col-md-2 text-start text-md-left">
-                <a class="fussHover" style="text-decoration:none;" href="index.html">Impressum</a>
+            <div class="col-md text-start text-md-left">
+                <a class="fussHover" style="text-decoration:none;" href="#">Impressum</a>
             </div>
-            <div class="col-md-2 text-start text-md-left">
+            <div class="col-md text-start text-md-left">
                 <a class="fussHover" style="text-decoration:none;" href="#">Zum&nbspSeitenanfang</a>
             </div>
-            <div class="col-md-2 text-start text-md-left">
+            <div class="col-md text-start text-md-left">
                 <a class="fussHover" style="text-decoration:none;" href="#">Kontakt</a>
             </div>
         </div>
