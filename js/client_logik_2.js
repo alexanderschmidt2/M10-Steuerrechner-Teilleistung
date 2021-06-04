@@ -15,16 +15,16 @@ function laender_hinzufuegen() {
     xhr.send();
     xhr.addEventListener("load", function() {
         if (xhr.status != 200) {
-            box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten");
+            box_machen("fehler", "1", null, null, "Es ist ein Fehler aufgetreten"); //Fehlerfeld generieren
         } else {
-            box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land");
+            box_machen("select", "1", "land", JSON.parse(xhr.responseText), "Land"); //Selectfeld für Auswahl des Landes generieren
             waren_hinzufuegen();
         }
     })
 };
 
 /*
-Zweiter Schritt, diese Funktion fragt dynamisch die Waren ab und generiert diese entsprechend nach Handelserlaubnis
+Zweiter Schritt, diese Funktion fragt dynamisch die Waren ab und generiert diese entsprechend nach Handelserlaubnis in ein Selectfeld
 */
 
 function waren_hinzufuegen() {
@@ -39,7 +39,7 @@ function waren_hinzufuegen() {
                 xhr.send();
                 xhr.addEventListener("load", function() {
                     if (xhr.status != 200) {
-                        box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten")
+                        box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten") //Fehlerfeld generieren
                     } else {
                         let laender_einfuhr = JSON.parse(xhr.responseText);
                         if (laender_einfuhr[0] == 1) {
@@ -48,9 +48,9 @@ function waren_hinzufuegen() {
                             xhr.send();
                             xhr.addEventListener("load", function() {
                                 if (xhr.status != 200) {
-                                    box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten hier");
+                                    box_machen("fehler", "2", null, null, "Es ist ein Fehler aufgetreten hier"); //Fehlerfeld generieren
                                 } else {
-                                    box_machen("select", "2", "ware", JSON.parse(xhr.responseText), "Waren");
+                                    box_machen("select", "2", "ware", JSON.parse(xhr.responseText), "Waren"); //Selectfeld für die verschiedenen Warenarten erzeugen
                                     eingabe_hinzufeugen(land_ausgewaehlt);
                                 }
                             })
@@ -70,7 +70,7 @@ Prüft die entsprechende Input Logik und fügt das Input Feld hinzu
 function eingabe_hinzufeugen(land_ausgewaehlt) {
     let waren_auswahl = document.getElementById("ware");
     if (waren_auswahl != null) {
-        waren_auswahl.addEventListener("change", function() { //AN DEN WAREN ÄNDERT SICH was
+        waren_auswahl.addEventListener("change", function() { //An der Warenauswahl ändert sich etwas
             muellsammler("3");
             ware_ausgewaehlt = waren_auswahl.value;
             if (ware_ausgewaehlt != "default") {
@@ -79,11 +79,11 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
                 xhr.send();
                 xhr.addEventListener("load", function() {
                     if (xhr.status != 200) {
-                        box_machen("fehler", "3", null, null, "Es ist ein Fehler aufgetreten");
+                        box_machen("fehler", "3", null, null, "Es ist ein Fehler aufgetreten"); //Fehlerfeld generieren
                     } else {
                         let eingabe_antwort = JSON.parse(xhr.responseText);
                         if (eingabe_antwort[0] == "0") {
-                            box_machen("input", "3", "warenwert", null, "Warenwert in €");
+                            box_machen("input", "3", "warenwert", null, "Warenwert in €"); //Inputfeld/Label für Eingabe des Warenwerts erzeugen
                             warenwert_auswahl = document.getElementById("warenwert");
                             warenwert_auswahl.classList.add('p-0');
                             warenwert_auswahl.addEventListener("change", function() {
@@ -91,7 +91,7 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
                                 rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt)
                             });
                         } else {
-                            box_machen("fehler", "3", null, null, eingabe_antwort[1])
+                            box_machen("fehler", "3", null, null, eingabe_antwort[1]) //Fehlerfeld generieren
                         };
                     }
                 });
@@ -104,7 +104,7 @@ function eingabe_hinzufeugen(land_ausgewaehlt) {
 Letzter Schritt, hier wird die Berechnung initiiert, die Berechnung findet im Server statt 
 */
 function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
-    box_machen("button", "4", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen");
+    box_machen("button", "4", "knopf_berechnen", "berechnen", "hier klicken zum Berechnen"); // Label und Knopf für die Berechnung des Warenwertes erzeugen
     warenwert_ausgewaehlt = warenwert_auswahl.value;
     warenwert_ausgewahlt = toString(warenwert_ausgewaehlt);
     document.getElementById("knopf_berechnen").addEventListener("click", function() {
@@ -116,10 +116,10 @@ function rechner(warenwert_auswahl, land_ausgewaehlt, ware_ausgewaehlt) {
         xhr.addEventListener("load", function() {
             if (xhr.status != 200) {
                 console.log("hier");
-                box_machen("fehler", "5", null, null, "Es ist ein Fehler aufgetreten");
+                box_machen("fehler", "5", null, null, "Es ist ein Fehler aufgetreten"); //Fehlerfeld generieren
             } else {
                 let ergebnis = JSON.parse(xhr.responseText);
-                box_machen("ergebnis", "5", "ergebnis", ergebnis, null);
+                box_machen("ergebnis", "5", "ergebnis", ergebnis, null); //Ergebnis der Berechnung erzeugen
 
             }
         })
